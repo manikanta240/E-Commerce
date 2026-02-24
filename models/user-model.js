@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/e-commerce')
-const userSchema = new mongoose.Schema({
-    fullname: String,
+
+const ownerSchema = new mongoose.Schema({
+    fullname: {
+        type: String,
+        minlength: 3,
+        trim: true
+    },
     email: String,
     password: String,
     cart: {
@@ -14,7 +18,7 @@ const userSchema = new mongoose.Schema({
         default: []
     },
     contact: Number,
-    picture: string
+    picture: String
 })
-const User = mongoose.model("User", userSchema)
-module.exports = User
+const owner = mongoose.model("owner", ownerSchema)
+module.exports = owner
