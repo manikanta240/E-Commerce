@@ -1,6 +1,7 @@
 
 const { default: string } = require('figlet/fonts/babyface-lame');
 const mongoose = require('mongoose');
+
 const Product = require('./product-model');
 
 const ownerSchema = new mongoose.Schema({
@@ -9,13 +10,13 @@ const ownerSchema = new mongoose.Schema({
         minlength: 3,
         trim: true
     },
-    email: string,
-    password: string,
+    email: String,
+    password: String,
     Products: {
         type: Array,
         default: []
-    }, picture: string,
-    gstin: number
+    }, picture: String,
+    gstin: Number
 })
-const User = mongoose.model("User", userSchema)
-module.exports = User
+const own = mongoose.model("Owner", ownerSchema)
+module.exports = own

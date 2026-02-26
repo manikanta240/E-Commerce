@@ -8,12 +8,11 @@ const usersRouter = require("./routes/usersRouter")
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static("public"))
+
 app.use("/owners", ownersRouter)
 app.use("/products", productsRouter)
 app.use("/users", usersRouter)
-app.get("/", (req, res) => {
-    res.send("Welcome to the E-Commerce API")
-})
+
 app.listen(3000, () => {
     console.log("Server is running on port 3000")
 })
