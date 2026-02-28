@@ -6,7 +6,19 @@ const ownersRouter = require("./routes/ownersRouter")
 const productsRouter = require("./routes/productsRouter")
 const usersRouter = require("./routes/usersRouter")
 const index = require("./routes/index")
-const dotenv = require("dotenv").config();
+const expresssession = require("express-session")
+const cookieParser = require("cookie-parser")
+const { isLoggedIn } = require("./middleware/isLoggedIn")
+const flash = require("connect-flash")
+app.use(cookieParser())
+app.use(expresssession({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.SESSION_KEY,
+}))
+app.use(flash())
+
+require("dotenv").config();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static("public"))
