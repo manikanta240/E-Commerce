@@ -6,6 +6,6 @@ router.get("/", (req, res) => {
 })
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.post("/logOut", logOut);
+router.get("/logout", logOut);
 
-module.exports = router
+module.exports = router 

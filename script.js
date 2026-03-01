@@ -10,10 +10,10 @@ const index = require("./routes/index")
 const session = require("express-session")
 const cookieParser = require("cookie-parser")
 const isLoggedIn = require("./middlewares/isLoggedin")
-const flash = require("flash")
+const flash = require("connect-flash")
 app.use(cookieParser())
 app.use(session({
-    secret: process.env.JWT_KEY,
+    secret: process.env.SESSION_KEY || process.env.JWT_KEY || "change-me",
     resave: false,
     saveUninitialized: false
 }))
@@ -27,9 +27,7 @@ app.use("/", index)
 app.use("/owners", ownersRouter)
 app.use("/products", productsRouter)
 app.use("/users", usersRouter)
-
-app.listen(3000, () => {
-    console.log(process.env.JWT_KEY)
-    console.log("SESSION:", process.env.SESSION_KEY)
-    console.log("Server is running on port 3000")
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+    console.log("Server running on port", PORT)
 })

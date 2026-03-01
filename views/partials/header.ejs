@@ -4,12 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Scatch - E-Commerce</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="font-['helvetica_now_display']">
-    <nav class="w-full fixed top-0 left-0 px-5 py-3">
-        <h3 class="text-xl">Scatch</h3>
+<body class="font-['helvetica_now_display'] pt-16">
+    <nav class="w-full fixed top-0 left-0 px-5 py-3 flex items-center justify-between bg-white/80 backdrop-blur border-b border-gray-200 z-10">
+        <a href="/" class="text-xl font-semibold">Scatch</a>
+        <div class="flex items-center gap-4 text-sm">
+            <% if (typeof cartCount !== 'undefined') { %>
+                <a href="/shop" class="hover:underline">Shop</a>
+                <a href="/cart" class="hover:underline relative">
+                    Cart
+                    <% if (cartCount > 0) { %>
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"><%= cartCount %></span>
+                    <% } %>
+                </a>
+                <a href="/logout" class="hover:underline text-red-500">Logout</a>
+            <% } else { %>
+                <a href="/" class="hover:underline">Home</a>
+            <% } %>
+        </div>
     </nav>

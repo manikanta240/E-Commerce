@@ -1,24 +1,25 @@
-const express = require("express")
-const router = express.Router()
-const ownerModel = require("../models/owner-model")
+const express = require("express");
+const router = express.Router();
+const ownerModel = require("../models/owner-model");
 
-router.get("/", (req, res) => {
-    res.send("working")
-})
+router.get("/login", (req, res) => {
+    res.render("owner-login");
+});
+
 if (process.env.NODE_ENV === "development") {
     router.post("/create", async (req, res) => {
-        let owners = await ownerModel.find();
+        const owners = await ownerModel.find();
         if (owners.length > 0) {
-            return res.status(503).send("Owner already exists")
+            return res.status(503).send("Owner already exists");
         }
-        let { fullname, email, password } = req.body;
-        let createdOwner = await ownerModel.create({
+        const { fullname, email, password } = req.body;
+        const createdOwner = await ownerModel.create({
             fullname,
             email,
             password,
-        })
-        res.status(201).send(createdOwner)
-    })
+        });
+        res.status(201).send(createdOwner);
+    });
 }
 
-module.exports = router
+module.exports = router;
