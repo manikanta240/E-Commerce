@@ -58,6 +58,7 @@ router.get("/cart/add/:id", isLoggedIn, async (req, res) => {
                 productId: product._id,
                 name: product.name,
                 price: product.price,
+                image: product.image,
                 quantity: 1,
             });
         }
