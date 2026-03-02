@@ -6,7 +6,6 @@ router.get("/", (req, res) => {
     const flashMessage = req.flash("error");
     res.render("index", { flashMessage, cartCount: undefined });
 });
-
 router.get("/shop", isLoggedIn, async (req, res) => {
     try {
         const products = await productModel.find();
@@ -21,7 +20,7 @@ router.get("/shop", isLoggedIn, async (req, res) => {
 router.get("/cart", isLoggedIn, (req, res) => {
     const cart = req.session.cart || [];
     const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const platformFee = 20;
+    const platformFee = 10;
     const shippingFee = 0;
     const total = subtotal + platformFee + shippingFee;
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -84,11 +83,9 @@ router.get("/cart/update/:id/:action", isLoggedIn, async (req, res) => {
         if (!req.session.cart) {
             return res.redirect("/cart");
         }
-
         const itemIndex = req.session.cart.findIndex(
             (item) => item.productId.toString() === id.toString()
         );
-
         if (itemIndex > -1) {
             if (action === "increase") {
                 req.session.cart[itemIndex].quantity += 1;
@@ -96,14 +93,11 @@ router.get("/cart/update/:id/:action", isLoggedIn, async (req, res) => {
                 req.session.cart[itemIndex].quantity -= 1;
             }
         }
-
         res.redirect("/cart");
     } catch (err) {
         res.status(500).send(err.message);
     }
 });
-
-// Logout clears token cookie and cart
 router.get("/logout", isLoggedIn, (req, res) => {
     res.cookie("token", "");
     req.session.cart = [];
